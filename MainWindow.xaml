@@ -7,6 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <WrapPanel>
+            <Button Content="X" Width="20" Height="20" VerticalAlignment="Top" Margin="2,2,40,0"/>
+            <ListBox Name="lbTodoList" Width="110" Padding="0,0,0,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="-2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="49" />
+                            <ColumnDefinition Width="49" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text ="{Binding number1}" Background  = "{Binding color}" FontSize="12"/>
+                        <TextBlock Grid.Column="1" Text="{Binding number2}" Background  = "{Binding color}" TextAlignment="Right" FontSize="12"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        </WrapPanel>
     </Grid>
 </Window>
