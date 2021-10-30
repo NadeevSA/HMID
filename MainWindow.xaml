@@ -5,11 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HMID"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="HMID"
+        WindowState="Maximized">
     <Grid>
-        <WrapPanel>
+        <Menu Height="25" VerticalAlignment="Top">
+        <MenuItem Header="File"></MenuItem>
+        <MenuItem Header="Edit"></MenuItem>
+        <MenuItem Header="Help"></MenuItem>
+            </Menu>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <WrapPanel Name="panel1" HorizontalAlignment="Stretch" Margin="0 25 0 0">
             <Button Content="X" Width="20" Height="20" VerticalAlignment="Top" Margin="2,2,40,0"/>
-            <ListBox Name="lbTodoList" Width="110" Padding="0,0,0,0">
+            <ListBox Name="lbTodoList" Width="130" Padding="0,0,0,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="-2">
@@ -23,6 +30,21 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        </WrapPanel>
+                <ListBox Name="lbTodoList1" Width="130" Padding="0,0,0,0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="-2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="49" />
+                                    <ColumnDefinition Width="49" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text ="{Binding number1}" Background  = "{Binding color}" FontSize="12"/>
+                                <TextBlock Grid.Column="1" Text="{Binding number2}" Background  = "{Binding color}" TextAlignment="Right" FontSize="12"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
