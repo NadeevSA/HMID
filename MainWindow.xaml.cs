@@ -29,11 +29,11 @@ namespace HMID
         {
             InitializeComponent();
             // TODO: Сделать сбор данных из БД
-            Random random = new Random();
-            for (int i = 1; i <= 14; ++i)
-            {
-                lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.Pink });
-            }
+            //Random random = new Random();
+            //for (int i = 1; i <= 14; ++i)
+            //{
+            //    lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.Pink });
+            //}
             //lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.Red });
             //for (int i = 1; i <= 5; ++i)
             //{
@@ -56,13 +56,14 @@ namespace HMID
                 ListBox listBox = new ListBox();
                 string template = "CarsDataTemplate";
                 WrapPanel dynamicWrapPanel = new WrapPanel();
-                f = false;
+                //f = false;
                 listBox.ItemTemplate = this.Resources[template] as DataTemplate;
                 listBox.Name = "test";
+                listBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#181818"));
                 listBox.Width = 140;
-                listBox.Height = 500;
+                listBox.Height = this.Height - 180;
                 panel1.Children.Add(listBox);
-                panel1.Children.RemoveAt(2);
+               // panel1.Children.RemoveAt(2);
             }
             foreach (var child in panel1.Children)
             {

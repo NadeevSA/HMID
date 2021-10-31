@@ -5,45 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HMID"
         mc:Ignorable="d"
+        Background="#181818"
         Title="HMID"
         WindowState="Maximized">
     <Window.Resources>
+        <Style TargetType="ScrollBar">
+            <Setter Property="Border.Background" Value="#181818"/>
+        </Style>
         <DataTemplate x:Key="CarsDataTemplate">
-            <Grid Margin="-2">
+            <Grid Margin="-2" Background="#181818">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="49" />
-                    <ColumnDefinition Width="49" />
+                    <ColumnDefinition Width="49"/>
+                    <ColumnDefinition Width="49"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text ="{Binding number1}" Background  = "{Binding color}" FontSize="12"/>
                 <TextBlock Grid.Column="1" Text="{Binding number2}" Background  = "{Binding color}" TextAlignment="Right" FontSize="12"/>
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Копировать"></MenuItem>
+                        <MenuItem Header="Вставить"></MenuItem>
+                        <MenuItem Header="Вырезать"></MenuItem>
+                        <MenuItem Header="Удалить"></MenuItem>
+                    </ContextMenu>
+                </Grid.ContextMenu>
             </Grid>
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Menu Height="25" VerticalAlignment="Top">
-        <MenuItem Header="File"></MenuItem>
-        <MenuItem Header="Edit"></MenuItem>
-        <MenuItem Header="Help"></MenuItem>
-            </Menu>
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <WrapPanel Name="panel1" HorizontalAlignment="Stretch" Margin="0 25 0 0">
-                <Button Content="X" Width="20" Height="20" VerticalAlignment="Top" Margin="2,2,40,0" Click="Button_Click"/>
-                <Button Content="Y" Width="20" Height="20" VerticalAlignment="Top" Margin="2,2,40,0" Click="Button_Click1"/>
-                <ListBox Name="lbTodoList" Width="130" Padding="0,0,0,0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="-2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="49" />
-                                    <ColumnDefinition Width="49" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text ="{Binding number1}" Background  = "{Binding color}" FontSize="12"/>
-                                <TextBlock Grid.Column="1" Text="{Binding number2}" Background  = "{Binding color}" TextAlignment="Right" FontSize="12"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+        <ScrollViewer Margin="0 0 0 50" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <WrapPanel Name="panel1" Margin="0 75 0 0" >
             </WrapPanel>
         </ScrollViewer>
+        <Menu Height="25" VerticalAlignment="Top" Background="#29292c">
+            <MenuItem Header="File" Foreground="#FFFFFF"></MenuItem>
+            <MenuItem Header="Edit" Foreground="#FFFFFF"></MenuItem>
+            <MenuItem Header="Help" Foreground="#FFFFFF"></MenuItem>
+        </Menu>
+        <WrapPanel Margin="0 25 0 0" Height="50" VerticalAlignment="Top" Background="#303034">
+            <Button Width="60" Height="20" Click="Button_Click" Margin="20 0 30 0">Кнопка</Button>
+        </WrapPanel>
+        <WrapPanel Margin="0 25 0 0" Height="50" VerticalAlignment="Bottom" Background="#303034">
+            <Button Width="50" Height="25" Margin="20 0 30 0">Button 1</Button>
+            <Button Width="50" Height="25" Margin="0 0 30 0">Button 1</Button>
+        </WrapPanel>
     </Grid>
 </Window>
