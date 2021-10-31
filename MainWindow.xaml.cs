@@ -29,11 +29,11 @@ namespace HMID
         {
             InitializeComponent();
             // TODO: Сделать сбор данных из БД
-            //Random random = new Random();
-            //for (int i = 1; i <= 14; ++i)
-            //{
-            //    lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100)/random.Next(1, 3), number2 = (double)random.Next(100)/random.Next(1, 3), color = Brushes.Pink });
-            //}
+            Random random = new Random();
+            for (int i = 1; i <= 14; ++i)
+            {
+                lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.Pink });
+            }
             //lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.Red });
             //for (int i = 1; i <= 5; ++i)
             //{
@@ -47,18 +47,41 @@ namespace HMID
         }
 
         bool f = true;
+        int j = 0;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //lbTodoList1.Items.Add(new Ctakan() { number1 = 10, number2 = 5, color = Brushes.LightGreen });
-            ListBox listBox = new ListBox();
             if (f == true)
             {
+                ListBox listBox = new ListBox();
+                string template = "CarsDataTemplate";
                 WrapPanel dynamicWrapPanel = new WrapPanel();
                 f = false;
-                listBox.Name = "asd";
+                listBox.ItemTemplate = this.Resources[template] as DataTemplate;
+                listBox.Name = "test";
                 listBox.Width = 140;
-                listBox.Items.Add(new Ctakan() { number1 = 11, number2 = 5, color = Brushes.LightGreen });
+                listBox.Height = 500;
                 panel1.Children.Add(listBox);
+                panel1.Children.RemoveAt(2);
+            }
+            foreach (var child in panel1.Children)
+            {
+                if(child is ListBox && (child as ListBox).Name == "test")
+                    (child as ListBox).Items.Add(new Ctakan() { number1 = (10 + j), number2 = 5, color = Brushes.LightGreen });
+                j++;
+            }
+        }
+
+        private void Button_Click1(object sender, RoutedEventArgs e)
+        {
+            foreach (var child in panel1.Children)
+            {
+                if (child is ListBox && (child as ListBox).Name == "test")
+                {
+                    int max = (child as ListBox).Items.Count;
+                   // (child as ListBox).Items.RemoveAt(0);
+                    (child as ListBox).Items.RemoveAt(max - 1);
+                }
             }
         }
     }

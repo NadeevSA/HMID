@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ListBox x:Key="listTemplate">
+        <DataTemplate>
+            <Grid Margin="-2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="49" />
+                    <ColumnDefinition Width="49" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text ="{Binding number1}" Background  = "{Binding color}" FontSize="12"/>
+                <TextBlock Grid.Column="1" Text="{Binding number2}" Background  = "{Binding color}" TextAlignment="Right" FontSize="12"/>
+            </Grid>
+        </DataTemplate>
+    </ListBox>
+</ResourceDictionary>
