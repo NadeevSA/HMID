@@ -1,7 +1,9 @@
-﻿using System;
+﻿using OxyPlot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,71 +19,50 @@ namespace HMID
 {
     public partial class MainWindow : Window
     {
-        public class Ctakan
-        {
-            // TODO: Написать название и сам класс нормально
-            public double number1 { get; set; }
-            public double number2 { get; set; }
-            public Brush color { get; set; }
-        }
-
         public MainWindow()
         {
             InitializeComponent();
-            // TODO: Сделать сбор данных из БД
-            //Random random = new Random();
-            //for (int i = 1; i <= 14; ++i)
-            //{
-            //    lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.Pink });
-            //}
-            //lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.Red });
-            //for (int i = 1; i <= 5; ++i)
-            //{
-            //    lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100)/random.Next(1, 3), number2 = (double)random.Next(100)/random.Next(1, 3), color = Brushes.White });
-            //}
-            //lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.Green });
-            //for (int i = 1; i <= 19; ++i)
-            //{
-            //    lbTodoList.Items.Add(new Ctakan() { number1 = (double)random.Next(100) / random.Next(1, 3), number2 = (double)random.Next(100) / random.Next(1, 3), color = Brushes.LightGreen });
-            //}
         }
 
-        bool f = true;
-        int j = 0;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //lbTodoList1.Items.Add(new Ctakan() { number1 = 10, number2 = 5, color = Brushes.LightGreen });
-            if (f == true)
+            if ((DepthOfMarket.Count + 1) * 140 <= this.Width)
             {
-                ListBox listBox = new ListBox();
-                string template = "CarsDataTemplate";
-                WrapPanel dynamicWrapPanel = new WrapPanel();
-                //f = false;
-                listBox.ItemTemplate = this.Resources[template] as DataTemplate;
-                listBox.Name = "test";
-                listBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#181818"));
-                listBox.Width = 140;
-                listBox.Height = this.Height - 180;
-                panel1.Children.Add(listBox);
-               // panel1.Children.RemoveAt(2);
+                DepthOfMarket depthOfMarket = new DepthOfMarket(this);
+                depthOfMarket.name = $"test{DepthOfMarket.Count + 1}";
+                depthOfMarket.Width = 140;
+                panel1.Children.Add(depthOfMarket.CreateList());
+                depthOfMarket.GenerationDatas();
             }
-            foreach (var child in panel1.Children)
-            {
-                if(child is ListBox && (child as ListBox).Name == "test")
-                    (child as ListBox).Items.Add(new Ctakan() { number1 = (10 + j), number2 = 5, color = Brushes.LightGreen });
-                j++;
-            }
+            else MessageBox.Show($"Нет места для {DepthOfMarket.Count + 1}-ого стакана.");
+        }
+
+        private void Сhart_Click(object sender, RoutedEventArgs e)
+        {
+            ChartWIndow chartWindow = new ChartWIndow();
+            chartWindow.Show();
+        }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+        }
+        private void SettingsDOM_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsDOM settingsDOM = new SettingsDOM();
+            settingsDOM.Show();
         }
 
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
             foreach (var child in panel1.Children)
             {
-                if (child is ListBox && (child as ListBox).Name == "test")
+                if (child is ListBox && ((sender as FrameworkElement).DataContext as DepthOfMarket).name == (child as ListBox).Name)
                 {
-                    int max = (child as ListBox).Items.Count;
-                   // (child as ListBox).Items.RemoveAt(0);
-                    (child as ListBox).Items.RemoveAt(max - 1);
+                    panel1.Children.Remove(child as ListBox);
+                    DepthOfMarket.Count--;
+                    break;
                 }
             }
         }
