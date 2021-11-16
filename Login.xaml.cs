@@ -59,5 +59,13 @@ namespace HMID
             registration.Show();
             this.Close();
         }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Environment.Exit(0);
+            }
+        }
     }
 }

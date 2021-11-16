@@ -15,26 +15,13 @@ using System.Windows.Shapes;
 namespace HMID
 {
     /// <summary>
-    /// Interaction logic for Registration.xaml
+    /// Interaction logic for AddDOM.xaml
     /// </summary>
-    public partial class Registration : Window
+    public partial class AddDOM : Window
     {
-        public Registration()
+        public AddDOM()
         {
             InitializeComponent();
-        }
-
-        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-
-        private void Window_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Escape)
-            {
-                Environment.Exit(0);
-            }
         }
     }
 }

@@ -6,26 +6,24 @@
         ResizeMode="NoResize"
         Title="Настройка рыночного стакана" Height="200" Width="350">
     <Grid Height="200" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <Label Content="Ширина стакана" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+        <TextBox TextChanged="TextChanged_width" x:Name="widht" Text="0" Width="100"  HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="0,2,18,0" Height="20" Background="LightGray"/>
+        <Button Click="Button_Up_Width" FontSize="10" Padding="0,-4,0,0" HorizontalAlignment="Right" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,2,6,0" Height="10"/>
+        <Button Click="Button_Down_Width" FontSize="10" Padding="0,-4,0,0" HorizontalAlignment="Right" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,12,6,0" Height="10"/>
 
-        <Label Content="Шаг цены" HorizontalAlignment="Left" Width="500"/>
-        <TextBox Text="0" Width="100"  HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="3,2,18,3" Height="20" Background="LightGray"/>
-        <Button FontSize="10" Padding="0,-4,0,0" HorizontalAlignment="Right" Content="▲" Width="13" VerticalAlignment="Top" Margin="90,2,6,13" Height="10"/>
-        <Button FontSize="10" Padding="0,-4,0,0" HorizontalAlignment="Right" Content="▼" Width="13" VerticalAlignment="Top" Margin="90,12,6,3" Height="10"/>
+        <Label Content="Заполнение строки объема при"  Margin="0 40 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+        <TextBox TextChanged="TextChanged_largePrice" x:Name="largePrice" Text="10" Width="100" HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="0,42,18,0" Height="20" Background="LightGray"/>
+        <Button Click="Button_Up_largePrice" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,42,6,0" Height="10"/>
+        <Button Click="Button_Down_largePrice" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,52,6,0" Height="10"/>
 
-        <Label Content="Заполнение строки объема при"  Margin="0 40 0 0" HorizontalAlignment="Left" Width="500"/>
-        <TextBox Text="10" Width="100" HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="3,42,18,3" Height="20" Background="LightGray"/>
-        <Button FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="90,42,6,13" Height="10"/>
-        <Button FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="90,52,6,3" Height="10"/>
+        <Label Content="Количество строк" Margin="0 80 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+        <TextBox TextChanged="TextChanged_num" x:Name="num" Text="0" HorizontalAlignment="Right" Width="100" TextAlignment="Center" VerticalAlignment="Top" Margin="0,82,18,0" Height="20" Background="LightGray"/>
+        <Button Click="Button_Up_num" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,82,6,0" Height="10"/>
+        <Button Click="Button_Down_num" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,92,6,0" Height="10"/>
 
-        <Label Content="Крупный объем 1" Margin="0 80 0 0" HorizontalAlignment="Left" Width="500"/>
-        <TextBox Text="0" HorizontalAlignment="Right" Width="100" TextAlignment="Center" VerticalAlignment="Top" Margin="3,82,18,3" Height="20" Background="LightGray"/>
-        <Button FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="90,82,6,13" Height="10"/>
-        <Button FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="90,92,6,3" Height="10"/>
-
-        <Label Content="Крупный объем 2" Margin="0 120 0 0" HorizontalAlignment="Left" Width="500"/>
-        <TextBox Text="0" HorizontalAlignment="Right" Width="100" TextAlignment="Center" VerticalAlignment="Top" Margin="3,122,18,3" Height="20" Background="LightGray"/>
-        <Button FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="90,122,6,13" Height="10"/>
-        <Button FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="90,132,6,3" Height="10"/>
-
+        <Label Content="Размер шрифта" Margin="0 120 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+        <TextBox TextChanged="TextChanged_fontSize" x:Name="fontSize" Text="0" HorizontalAlignment="Right" Width="100" TextAlignment="Center" VerticalAlignment="Top" Margin="0,122,18,0" Height="20" Background="LightGray"/>
+        <Button Click="Button_Up_fontSize" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,122,6,0" Height="10"/>
+        <Button Click="Button_Down_fontSize" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,132,6,0" Height="10"/>
     </Grid>
 </Window>

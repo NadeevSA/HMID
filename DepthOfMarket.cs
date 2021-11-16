@@ -12,19 +12,23 @@ using System.Windows.Threading;
 
 namespace HMID
 {
-    class DepthOfMarket
+    public class DepthOfMarket
     {
         private double ActualPrice;
         private MainWindow form;
-        private int N = 40;
         public static int Count = 0;
-        private double LargeRrice = 17000;
-        public int Width { get; set; }
+        public int N = 46;
+        public int ID;
+        public int FontSize = 12;
+        public double LargeRrice = 17000;
+        public int Width = 140;
         public string name { get; set; }
-
-        // TODO: Насчет этих двух полей не уверен
         public string Title { get; private set; }
         public IList<DataPoint> Points { get; private set; }
+
+        public DepthOfMarket()
+        {
+        }
 
         public DepthOfMarket(MainWindow form)
         {
@@ -44,7 +48,7 @@ namespace HMID
                 {
                     if (child is ListBox && (child as ListBox).Name == name)
                     {
-                        (child as ListBox).Items.Add(new Data() { AmountToCurrency = random.Next(1, 20000), PriceToCurrency = price, color = new SolidColorBrush(Color.FromRgb(228, 182, 184)) });
+                        (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = random.Next(1, 20000), PriceToCurrency = price, color = new SolidColorBrush(Color.FromRgb(228, 182, 184)) });
                         price = Math.Round(price + 0.05, 2);
                     }
                 }
@@ -55,7 +59,7 @@ namespace HMID
                 {
                     if (child is ListBox && (child as ListBox).Name == name)
                     {
-                        (child as ListBox).Items.Add(new Data() { AmountToCurrency = random.Next(1, 20000), PriceToCurrency = price, color = Brushes.LightGreen });
+                        (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = random.Next(1, 20000), PriceToCurrency = price, color = Brushes.LightGreen });
                         price = Math.Round(price + 0.05, 2);
                     }
                 }
@@ -93,17 +97,17 @@ namespace HMID
                                 double rnd = random.Next(1, 20000);
                                 if (child is ListBox && (child as ListBox).Name == name && rnd >= LargeRrice)
                                 {
-                                    (child as ListBox).Items[i] = new Data() { AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = Brushes.Yellow };
+                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width/2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = Brushes.Yellow };
                                     break;
                                 }
                                 if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).PriceToCurrency <= ActualPrice)
                                 {                                    
-                                    (child as ListBox).Items[i] = new Data() { AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = new SolidColorBrush(Color.FromRgb(228, 182, 184)) };
+                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = new SolidColorBrush(Color.FromRgb(228, 182, 184)) };
                                     break;
                                 }
                                 if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).PriceToCurrency > ActualPrice)
                                 {
-                                    (child as ListBox).Items[i] = new Data() { AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = Brushes.LightGreen };
+                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = Brushes.LightGreen };
                                     break;
                                 }
                             }

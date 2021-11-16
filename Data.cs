@@ -11,6 +11,9 @@ namespace HMID
     {
         public double AmountToCurrency { get; set; }
         public double PriceToCurrency { get; set; }
+        public double WidthColumn { get; set; }
+        public double FontSZ { get; set; }
+        public string name { get; set; }
         public Brush color { get; set; }
     }
 }

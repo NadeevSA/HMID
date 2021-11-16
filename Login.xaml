@@ -9,10 +9,13 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent" 
         WindowStyle="None"
+        KeyUp="Window_KeyUp"
         Title="Login" Height="450" Width="380" MouseDown="titleBar_MouseLeftButtonDown">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="White" />
             <Setter Property="Background" Value="Transparent" />
         </Style>
     </Window.Resources>

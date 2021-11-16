@@ -9,10 +9,14 @@
         Background="Transparent" 
         WindowStyle="None"
         mc:Ignorable="d"
+        KeyUp="Window_KeyUp"
+        MouseDown="titleBar_MouseLeftButtonDown"
         Title="Registration" Height="450" Width="380">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="White" />
             <Setter Property="Background" Value="Transparent" />
         </Style>
     </Window.Resources>
@@ -41,7 +45,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBox FontFamily="Helvetica"
                              FontWeight="Light"
-                             Text="Username"                             
+                             Text=""                             
                              FontSize="20"
                              x:Name="login"
                              HorizontalAlignment="Center"
@@ -60,7 +64,7 @@
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <PasswordBox FontFamily="Helvetica"
                              FontWeight="Light"
-                             Password="Password"
+                             Password=""
                              FontSize="20"
                              x:Name="password"
                              HorizontalAlignment="Center"
