@@ -31,19 +31,19 @@ namespace HMID
 
         private void login_click(object sender, MouseButtonEventArgs e)
         {
-            if(login.Text == "Username")
+            if(login.Text == "Введите API-key")
                 login.Text = "";
         }
 
         private void password_click(object sender, MouseButtonEventArgs e)
         {
-            if(password.Password == "Password")
-                password.Password = "";
+            if(password.Text == "Введите API-secret key")
+                password.Text = "";
         }
 
         private void btn_login_click(object sender, RoutedEventArgs e)
         {
-            if (login.Text == "" || password.Password == "") 
+            if (login.Text == "" || password.Text == "") 
                 MessageBox.Show("введите данные");
             else
             {
@@ -66,6 +66,11 @@ namespace HMID
             {
                 Environment.Exit(0);
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

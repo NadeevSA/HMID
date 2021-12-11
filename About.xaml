@@ -1,0 +1,31 @@
+﻿<Window x:Class="HMID.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HMID"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent" 
+        WindowStyle="None"
+        MouseDown="titleBar_MouseLeftButtonDown"
+        Title="About" Height="160" Width="370">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </Window.Resources>
+    <Border Background="White">
+        <Grid>
+            <Label>Терминал для торговли на бирже</Label>
+            <Label Margin="0,15,0,0">Создатели: студенты УГАТУ, ПРО-421</Label>
+            <Label Margin="0,30,0,0">По вопросам обращайтеся на почту: nasha_pochta@mail.ru</Label>
+            <Label Margin="0,45,0,0">Предложения по работе - ждем</Label>
+            <Label Margin="0,60,0,0">Все права защищены</Label>
+            <Button Margin="10,80,20,20" Width="70" Height="40" Content="Закрыть" Click="Button_Click"/>
+        </Grid>
+    </Border>
+</Window>

@@ -23,6 +23,11 @@ namespace HMID
         private MainWindow form;
         private string name;
 
+        private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
         public SettingsDOM(DepthOfMarket depthOfMarket, MainWindow form, int N, int FontSize, double LargePrice, 
             int Width, string name)
         {
@@ -38,11 +43,11 @@ namespace HMID
             widht.Text = Convert.ToString(Width);
             largePrice.Text = Convert.ToString(LargePrice);
             fontSize.Text = Convert.ToString(FontSize);
-            num.Text = Convert.ToString(N);
         }
 
         private void TextChanged_width(object sender, TextChangedEventArgs e)
         {
+            if (widht.Text == "") return;
             int width = Convert.ToInt32(widht.Text);
             foreach (var child in form.panel1.Children)
             {
@@ -57,17 +62,14 @@ namespace HMID
 
         private void TextChanged_largePrice(object sender, TextChangedEventArgs e)
         {
+            if (largePrice.Text == "") return;
             int large = Convert.ToInt32(largePrice.Text);
             depthOfMarket.LargeRrice = large;
         }
 
-        private void TextChanged_num(object sender, TextChangedEventArgs e)
-        {
-            
-        }
-
         private void TextChanged_fontSize(object sender, TextChangedEventArgs e)
         {
+            if (fontSize.Text == "") return;
             int NewfontSize = Convert.ToInt32(fontSize.Text);
             depthOfMarket.FontSize = NewfontSize;
         }
@@ -75,12 +77,14 @@ namespace HMID
 
         private void Button_Up_Width(object sender, RoutedEventArgs e)
         {
+            if (widht.Text == "") return;
             int newWidth = Convert.ToInt32(widht.Text);
             widht.Text = Convert.ToString(++newWidth);
         }
 
         private void Button_Down_Width(object sender, RoutedEventArgs e)
         {
+            if (widht.Text == "") return;
             int newWidth = Convert.ToInt32(widht.Text);
             widht.Text = Convert.ToString(--newWidth);
         }
@@ -88,40 +92,35 @@ namespace HMID
 
         private void Button_Up_largePrice(object sender, RoutedEventArgs e)
         {
+            if (largePrice.Text == "") return;
             int newWidth = Convert.ToInt32(largePrice.Text);
             largePrice.Text = Convert.ToString(++newWidth);
         }
 
         private void Button_Down_largePrice(object sender, RoutedEventArgs e)
         {
+            if (largePrice.Text == "") return;
             int newWidth = Convert.ToInt32(largePrice.Text);
             largePrice.Text = Convert.ToString(--newWidth);
         }
 
-
-        private void Button_Up_num(object sender, RoutedEventArgs e)
-        {
-            int newWidth = Convert.ToInt32(num.Text);
-            num.Text = Convert.ToString(++newWidth);
-        }
-
-        private void Button_Down_num(object sender, RoutedEventArgs e)
-        {
-            int newWidth = Convert.ToInt32(num.Text);
-            num.Text = Convert.ToString(--newWidth);
-        }
-
-
         private void Button_Up_fontSize(object sender, RoutedEventArgs e)
         {
+            if (fontSize.Text == "") return;
             int newWidth = Convert.ToInt32(fontSize.Text);
             fontSize.Text = Convert.ToString(++newWidth);
         }
 
         private void Button_Down_fontSize(object sender, RoutedEventArgs e)
         {
+            if (fontSize.Text == "") return;
             int newWidth = Convert.ToInt32(fontSize.Text);
             fontSize.Text = Convert.ToString(--newWidth);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

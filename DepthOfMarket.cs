@@ -14,11 +14,13 @@ namespace HMID
 {
     public class DepthOfMarket
     {
+        private ListBox listBox = new ListBox();
         private double ActualPrice;
         private MainWindow form;
         public static int Count = 0;
         public int N = 46;
-        public int ID;
+        public string tab;
+        public SolidColorBrush largeColor;
         public int FontSize = 12;
         public double LargeRrice = 17000;
         public int Width = 140;
@@ -41,7 +43,7 @@ namespace HMID
         public void GenerationDatas()
         {
             Random random = new Random();
-            double price = ActualPrice + 1 - (double)N/20.0;
+            double price = ActualPrice + N/2 * 0.05;
             for (int i = 1; i <= N/2; ++i)
             {
                 foreach (var child in form.panel1.Children)
@@ -49,7 +51,7 @@ namespace HMID
                     if (child is ListBox && (child as ListBox).Name == name)
                     {
                         (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = random.Next(1, 20000), PriceToCurrency = price, color = new SolidColorBrush(Color.FromRgb(228, 182, 184)) });
-                        price = Math.Round(price + 0.05, 2);
+                        price = Math.Round(price - 0.05, 2);
                     }
                 }
             }
@@ -60,7 +62,7 @@ namespace HMID
                     if (child is ListBox && (child as ListBox).Name == name)
                     {
                         (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = random.Next(1, 20000), PriceToCurrency = price, color = Brushes.LightGreen });
-                        price = Math.Round(price + 0.05, 2);
+                        price = Math.Round(price - 0.05, 2);
                     }
                 }
             }
@@ -97,15 +99,15 @@ namespace HMID
                                 double rnd = random.Next(1, 20000);
                                 if (child is ListBox && (child as ListBox).Name == name && rnd >= LargeRrice)
                                 {
-                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width/2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = Brushes.Yellow };
+                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width/2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = largeColor };
                                     break;
                                 }
-                                if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).PriceToCurrency <= ActualPrice)
+                                if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).PriceToCurrency > ActualPrice)
                                 {                                    
                                     (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = new SolidColorBrush(Color.FromRgb(228, 182, 184)) };
                                     break;
                                 }
-                                if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).PriceToCurrency > ActualPrice)
+                                if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).PriceToCurrency <= ActualPrice)
                                 {
                                     (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = Brushes.LightGreen };
                                     break;
@@ -119,13 +121,17 @@ namespace HMID
 
         public ListBox CreateList()
         {
-            ListBox listBox = new ListBox();
             string template = "CarsDataTemplate";
             listBox.ItemTemplate = form.Resources[template] as DataTemplate;
             listBox.Name = name;
             listBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#181818"));
             listBox.Width = Width;
             listBox.Height = form.Height;
+            return listBox;
+        }
+
+        public ListBox ReturnListBox()
+        {
             return listBox;
         }
     }

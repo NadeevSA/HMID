@@ -10,7 +10,7 @@
         Background="Transparent" 
         WindowStyle="None"
         KeyUp="Window_KeyUp"
-        Title="Login" Height="450" Width="380" MouseDown="titleBar_MouseLeftButtonDown">
+        Title="Login" Height="500" Width="370" MouseDown="titleBar_MouseLeftButtonDown">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Verdana" />
@@ -29,30 +29,33 @@
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="#29292c" Offset="0.0"/>
-                        <GradientStop Color="#FFFFFF" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
+            <StackPanel  VerticalAlignment="Top">
+                <Button Background="Red" Width="20" Height="20" Margin="300,20,20,20" Content="X" Click="Button_Click"/>
+            </StackPanel>
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Text="HMID"
+                <TextBlock Text="Торговый Терминал"
                            FontWeight="Light"
-                           FontSize="100"
+                           FontSize="70"
+                           TextWrapping="Wrap"
                            Foreground="#FFFFFF"
                            HorizontalAlignment="Center"/>
             </StackPanel>
-            <StackPanel Grid.Row="1" >
+            <StackPanel Grid.Row="2" >
                 <StackPanel Orientation="Horizontal">
                     <TextBox FontFamily="Helvetica"
-                             FontWeight="Light"
-                             Text="Username"                             
+                             FontWeight="Light"                           
                              FontSize="20"
+                             Text="Введите API-key"
+                             CaretBrush="White"
                              x:Name="login"
-                             HorizontalAlignment="Center"
                              Foreground="#FFFFFF"
                              PreviewMouseDown="login_click"
                              Background="Transparent"
                              BorderThickness="0"
-                             Width="235"
+                             Width="248"
                              HorizontalContentAlignment="Left"
                              Height="25"
                              Margin="63,0,0,0"/>
@@ -61,18 +64,18 @@
                         Height="2"
                         Background="#FFFFFF"
                         Opacity="0.5"/>
-                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                    <PasswordBox FontFamily="Helvetica"
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,20,0,0">
+                    <TextBox FontFamily="Helvetica"
                              FontWeight="Light"
-                             Password="Password"
                              FontSize="20"
+                             Text="Введите API-secret key"
                              x:Name="password"
-                             HorizontalAlignment="Center"
                              Foreground="#FFFFFF"
+                             CaretBrush="White"
                              PreviewMouseDown="password_click"
                              Background="Transparent"
                              BorderThickness="0"
-                             Width="235"
+                             Width="245"
                              HorizontalContentAlignment="Left"
                              Height="25"
                              Margin="63,0,0,0"/>
@@ -82,8 +85,8 @@
                         Background="#FFFFFF"
                         Opacity="0.5"/>
                 <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
-                    <Button Width="100" Height="40" Content="LOGIN" Margin="60,0,60,0" Click="btn_login_click"/>
-                    <Button Width="100" Height="40" Content="SIGN UP" Click="btn_registration_click"/>
+                    <Button Content="Войти" Width="100" Height="40" Margin="80,0,20,0" Click="btn_login_click"/>
+                    <Button Width="100" Height="40" Content="Регистрация"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

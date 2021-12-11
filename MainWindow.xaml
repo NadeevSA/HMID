@@ -25,7 +25,6 @@
                 <TextBlock Grid.Column="1" Text="{Binding PriceToCurrency}" Background  = "{Binding color}" TextAlignment="Right" FontSize="{Binding FontSZ}"/>
                 <Grid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="График" Background="#29292c" Foreground="#FFFFFF" Click="Сhart_Click"></MenuItem>
                         <MenuItem Header="Настройка" Background="#29292c" Foreground="#FFFFFF"  Click="SettingsDOM_Click"></MenuItem>
                         <MenuItem Header="Удалить" Background="#29292c" Foreground="#FFFFFF" Click="Button_Click1"></MenuItem>
                     </ContextMenu>
@@ -34,42 +33,23 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
+        <WrapPanel Name="panel2" Margin="0 75 0 0" ></WrapPanel>
         <ScrollViewer Margin="0 0 0 0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <WrapPanel Name="panel1" Margin="0 75 0 0" >
-            </WrapPanel>
+            <WrapPanel Name="panel1" Margin="0 105 0 0" ></WrapPanel>
         </ScrollViewer>
         <Menu Margin="0 0 0 20" Height="25" VerticalAlignment="Top" Background="#29292c">
-            <MenuItem Header="Выйти из аккаунта" Foreground="#FFFFFF"></MenuItem>
-            <MenuItem Header="Кошелек" Foreground="#FFFFFF"></MenuItem>
+            <MenuItem Header="Кошелек" Foreground="#FFFFFF" Click="MenuItem_Click_3"></MenuItem>
             <MenuItem Header="Помощь" Foreground="#FFFFFF"></MenuItem>
-            <MenuItem Header="Выход" Foreground="#FFFFFF" Click="MenuItem_Click"></MenuItem>
+            <MenuItem Header="О нас" Foreground="#FFFFFF" Click="MenuItem_Click_2"></MenuItem>
+            <MenuItem Header="Выйти из аккаунта" Foreground="#FFFFFF" Click="MenuItem_Click_1"></MenuItem>
+            <MenuItem Header="Выйти из приложения" Foreground="#FFFFFF" Click="MenuItem_Click"></MenuItem>
         </Menu>
         <WrapPanel Margin="0 25 0 0" Height="50" VerticalAlignment="Top" Background="#303034">
-            <Button Width="20" Height="40" Background="#29292c" Foreground="#FFFFFF" Margin="3 0 3 0" Click="Button_Click">+</Button>
-            <ComboBox SelectedIndex="0" x:Name="value" Width="100" Height="20" Margin="3 0 3 0">
-                <TextBlock>BTC_USDT</TextBlock>
-                <TextBlock>ETH_USDT</TextBlock>
-                <TextBlock>DOT_USDT</TextBlock>
-                <TextBlock>SOL_USDT</TextBlock>
-                <TextBlock>AVAX_USDT</TextBlock>
-                <TextBlock>IOTX_USDT</TextBlock>
-                <TextBlock>ADA_USDT</TextBlock>
-                <TextBlock>XRP_USDT</TextBlock>
-                <TextBlock>LUNA_USDT</TextBlock>
-                <TextBlock>LINK_USDT</TextBlock>
-                <TextBlock>LTC_USDT</TextBlock>
-                <TextBlock>VET_USDT</TextBlock>
-                <TextBlock>UNI_USDT</TextBlock>
-                <TextBlock>AXS_USDT</TextBlock>
-                <TextBlock>XLM_USDT</TextBlock>
-                <TextBlock>ALGO_USDT</TextBlock>
-                <TextBlock>FTM_USDT</TextBlock>
-                <TextBlock>THETA_USDT</TextBlock>
-                <TextBlock>NEAR_USDT</TextBlock>
-            </ComboBox>
-            <Button Width="20" Height="40" Background="#29292c" Foreground="#FFFFFF" Margin="3 0 3 0" Click="Button_Click_1">+</Button>
-            <TabControl x:Name="products" ItemTemplate="{StaticResource CustomHeaderTemplate}" 
-                        ContentTemplate="{StaticResource CarsDataTemplate}" Background="#303034">
+            <Button Width="150" Height="40" Background="#29292c" Foreground="#FFFFFF" Margin="3 0 3 0" Click="Button_Click_2">Создать рыночный стакан</Button>
+            <Button Width="100" Height="40" Background="#29292c" Foreground="#FFFFFF" Margin="3 0 3 0" Click="Button_Click_1">Создать вкладку</Button>
+            <Button Width="150" Height="40" Background="#29292c" Foreground="#FFFFFF" Margin="3 0 3 0" Click="Button_Click_3">Удалить текущую вкладку</Button>
+            <TabControl x:Name="products" SelectionChanged="products_SelectionChanged"  Background="#303034">
+                <TabItem Header="Вкладка 1" Width="70"></TabItem>
             </TabControl>
         </WrapPanel>
     </Grid>

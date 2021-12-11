@@ -4,9 +4,66 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HMID"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        MouseDown="titleBar_MouseLeftButtonDown"
         mc:Ignorable="d"
-        Title="Создать рыночноый стакан" Height="200" Width="350">
-    <Grid>
-       
-    </Grid>
+        ResizeMode="NoResize"
+        Background="Transparent" 
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="Создать рыночноый стакан" Height="300" Width="320">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </Window.Resources>
+    <Border Background="White" CornerRadius="20">
+        <Grid Height="300" Margin="7,7,7,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Label Content="Ширина стакана" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="widht" Text="140" Width="100"  HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="0,2,18,0" Height="20" Background="White"/>
+            <Button Click="Button_Up_Width" FontSize="10" Padding="0,-3,0,0" HorizontalAlignment="Right" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,2,6,0" Height="10"/>
+            <Button Click="Button_Down_Width" FontSize="10" Padding="0,-2,0,0" HorizontalAlignment="Right" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,12,6,0" Height="10"/>
+
+            <Label Content="Заполнение строки объема при"  Margin="0 40 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="largePrice" Text="10000" Width="100" HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="0,42,18,0" Height="20" Background="White"/>
+            <Button Click="Button_Up_largePrice" FontSize="10" HorizontalAlignment="Right" Padding="0,-3,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,42,6,0" Height="10"/>
+            <Button Click="Button_Down_largePrice" FontSize="10" HorizontalAlignment="Right" Padding="0,-2,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,52,6,0" Height="10"/>
+
+            <Label Content="Размер шрифта" Margin="0 80 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="fontSize" Text="14" HorizontalAlignment="Right" Width="100" TextAlignment="Center" VerticalAlignment="Top" Margin="0,84,18,0" Height="20" Background="White"/>
+            <Button Click="Button_Up_fontSize" FontSize="10" HorizontalAlignment="Right" Padding="0,-3,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,84,6,0" Height="10"/>
+            <Button Click="Button_Down_fontSize" FontSize="10" HorizontalAlignment="Right" Padding="0,-2,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,94,6,0" Height="10"/>
+
+            <Label Content="Вид валюты" Margin="0 115 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <ComboBox SelectedIndex="0" x:Name="value" Width="100" Height="20" Margin="180 0 0 40">
+                <TextBlock>BTC_USDT</TextBlock>
+                <TextBlock>ETH_USDT</TextBlock>
+                <TextBlock>DOT_USDT</TextBlock>
+                <TextBlock>SOL_USDT</TextBlock>
+                <TextBlock>AVAX_USDT</TextBlock>
+                <TextBlock>IOTX_USDT</TextBlock>
+                <TextBlock>ADA_USDT</TextBlock>
+                <TextBlock>XRP_USDT</TextBlock>
+                <TextBlock>LUNA_USDT</TextBlock>
+                <TextBlock>LINK_USDT</TextBlock>
+                <TextBlock>LTC_USDT</TextBlock>
+                <TextBlock>VET_USDT</TextBlock>
+                <TextBlock>UNI_USDT</TextBlock>
+                <TextBlock>AXS_USDT</TextBlock>
+                <TextBlock>XLM_USDT</TextBlock>
+                <TextBlock>ALGO_USDT</TextBlock>
+                <TextBlock>FTM_USDT</TextBlock>
+                <TextBlock>THETA_USDT</TextBlock>
+                <TextBlock>NEAR_USDT</TextBlock>
+            </ComboBox>
+            <Label Content="Цвет при заполнении объема" Margin="0 155 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <xctk:ColorPicker Margin="180 120 0 80" Height="20" SelectedColor="Yellow" Width="110" Name="LargeColor"/>
+            
+            <Button Height="25" Width="170" Margin="0 180 0 0" Click="Button_Click">Создать рыночный стакан</Button>
+            <Button Height="25" Width="170" Margin="0 240 0 0" Click="Button_Click_1">Закрыть</Button>
+        </Grid>
+    </Border> 
 </Window>
