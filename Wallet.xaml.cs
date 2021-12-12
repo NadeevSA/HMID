@@ -22,11 +22,7 @@ namespace HMID
         public Wallet()
         {
             InitializeComponent();
-            List<Valuta> phonesList = new List<Valuta>
-            {
-                new Valuta { name="ываы", count=2, result=4.21, commission=0.21, earning=4.42 },
-            };
-            phonesGrid.ItemsSource = phonesList;
+            phonesGrid.ItemsSource = MainWindow.valutas;
         }
 
         private void titleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

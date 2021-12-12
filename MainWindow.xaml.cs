@@ -23,6 +23,7 @@ namespace HMID
         private int deleteTabs = 0;
         private int id = 0;
 
+        public static User user;
         public static int _width;
         public static int _largePrice;
         public static int _fontSize;
@@ -38,10 +39,13 @@ namespace HMID
         public static List<DepthOfMarket> depthOfMarkets = new List<DepthOfMarket>();
         public static Dictionary<String, TextBox> valuePairs = new Dictionary<string, TextBox>();
         public static Dictionary<String, ComboBox> valuePairs1 = new Dictionary<string, ComboBox>();
+        public static List<Valuta> valutas = new List<Valuta>();
+        public static Dictionary<String, bool> one = new Dictionary<string, bool>();
 
         public MainWindow()
         {
             InitializeComponent();
+            user = new User();
             Rialto rialto = new Rialto(this);
         }
 
@@ -72,15 +76,15 @@ namespace HMID
             panel1.Children.Add(depthOfMarket.CreateList());
             TextBox textBox = new TextBox();
             textBox.Width = _width;
-            textBox.Height = 80;
+            textBox.Height = 100;
             textBox.IsReadOnly = true;
             ComboBox comboBox = new ComboBox();
             TextBlock forComboBox1 = new TextBlock();
             TextBlock forComboBox2 = new TextBlock();
             TextBlock forComboBox3 = new TextBlock();
-            forComboBox1.Text = "1000";
-            forComboBox2.Text = "3000";
-            forComboBox3.Text = "5000";
+            forComboBox1.Text = "10";
+            forComboBox2.Text = "30";
+            forComboBox3.Text = "50";
             comboBox.Items.Add(forComboBox1);
             comboBox.Items.Add(forComboBox2);
             comboBox.Items.Add(forComboBox3);
@@ -89,6 +93,7 @@ namespace HMID
             comboBox.Height = 20;
             valuePairs.Add(depthOfMarket.name, textBox);
             valuePairs1.Add(depthOfMarket.name, comboBox);
+            one.Add(depthOfMarket.name, false);
             depthOfMarket.GenerationDatas();
             panel3.Children.Add(comboBox);
             panel2.Children.Add(textBox);
@@ -142,9 +147,75 @@ namespace HMID
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(((sender as FrameworkElement).DataContext as Data).active)
+            string name = "";
+            foreach (var child in panel1.Children)
+            {
+                if(child is ListBox && ((sender as FrameworkElement).DataContext as Data).name == (child as ListBox).Name)
+                {
+                    name = (child as ListBox).Name;
+                }
+            }
+
+            if (((sender as FrameworkElement).DataContext as Data).active)
+            {
                 ((sender as FrameworkElement).DataContext as Data).active = false;
-            else ((sender as FrameworkElement).DataContext as Data).active = true;
+                one[name] = false;
+                user.Buy = 0;
+                user.Sell = 0;
+            }
+            else
+            {
+                if(one[name] == false) {
+                    foreach (var child in panel1.Children)
+                    {
+                        if (child is ListBox && ((sender as FrameworkElement).DataContext as Data).name == (child as ListBox).Name)
+                        {
+                            foreach (var dom in depthOfMarkets)
+                            {
+                                if (dom.name == (child as ListBox).Name)
+                                {
+                                    if (dom.ActualPrice >= ((sender as FrameworkElement).DataContext as Data).PriceToCurrency)
+                                    {
+                                        if (Convert.ToInt32((valuePairs1[dom.name].SelectedItem as TextBlock).Text) *
+                                            ((sender as FrameworkElement).DataContext as Data).PriceToCurrency <= user.balance){
+                                            user.Buy = ((sender as FrameworkElement).DataContext as Data).PriceToCurrency;
+                                            ((sender as FrameworkElement).DataContext as Data).active = true;
+                                            one[name] = true;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("У вас не достаточно денег");
+                                            ((sender as FrameworkElement).DataContext as Data).active = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        int count = 0;
+                                        foreach (var valuta in valutas)
+                                        {
+                                            if (valuta.name == dom.Valuta) 
+                                                count = valuta.count;
+                                        }
+                                        if (count >= Convert.ToInt32((valuePairs1[dom.name].SelectedItem as TextBlock).Text))
+                                        {
+                                            user.Sell = ((sender as FrameworkElement).DataContext as Data).PriceToCurrency;
+                                            ((sender as FrameworkElement).DataContext as Data).active = true;
+                                            one[name] = true;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("У вас нет столько валюты на продажу");
+                                            ((sender as FrameworkElement).DataContext as Data).active = false;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

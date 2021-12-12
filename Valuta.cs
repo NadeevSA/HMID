@@ -9,9 +9,9 @@ namespace HMID
     public class Valuta
     {
         public string name { get; set; }
-        public double result { get; set; }
-        public double count { get; set; }
-        public double commission { get; set; }
-        public double earning { get; set; }
+        public double result { get; set; } = 0;
+        public int count { get; set; } = 0;
+        public double commission { get; set; } = 0;
+        public double earning { get; set; } = 0;
     }
 }

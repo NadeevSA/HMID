@@ -33,19 +33,13 @@ namespace HMID
         public string name { get; set; }
         public string Title { get; private set; }
         public IList<DataPoint> Points { get; private set; }
-
-        public DepthOfMarket()
-        {
-        }
-
         public DepthOfMarket(MainWindow form)
         {
             Random random = new Random();
-            ActualPrice = random.Next(2, 6);
+            ActualPrice = random.Next(3, 7);
             Count++;
             this.form = form;
         }
-
         public DepthOfMarket(MainWindow form, double price)
         {
             Random random = new Random();
@@ -106,6 +100,64 @@ namespace HMID
             myThread.Start();
         }
 
+        private void BuySell()
+        {
+            int cnt = Convert.ToInt32((MainWindow.valuePairs1[name].SelectedItem as TextBlock).Text);
+            if (MainWindow.user.Buy != 0)
+            {
+                MainWindow.user.balance -= cnt * MainWindow.user.Buy;
+                bool flag = true;
+                foreach (var val in MainWindow.valutas)
+                {
+                    if(val.name == Valuta)
+                    {
+                        val.earning -= cnt * Math.Round(MainWindow.user.Buy, 2);
+                        val.earning = Math.Round(val.earning, 2);
+                        val.count += cnt;
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag)
+                {
+                    Valuta newValuta = new Valuta();
+                    newValuta.name = Valuta;
+                    newValuta.earning -= cnt * Math.Round(MainWindow.user.Buy, 2);
+                    newValuta.earning = Math.Round(newValuta.earning, 2);
+                    newValuta.count += cnt;
+                    MainWindow.valutas.Add(newValuta);
+                }
+            }
+            else
+            {
+                MainWindow.user.balance += cnt * MainWindow.user.Sell;
+                bool flag = true;
+                foreach (var val in MainWindow.valutas)
+                {
+                    if (val.name == Valuta)
+                    {
+                        val.earning += cnt * Math.Round(MainWindow.user.Sell, 2);
+                        val.earning = Math.Round(val.earning, 2);
+                        val.count -= cnt;
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag)
+                {
+                    Valuta newValuta = new Valuta();
+                    newValuta.name = Valuta;
+                    newValuta.earning += cnt * Math.Round(MainWindow.user.Sell, 2);
+                    newValuta.earning = Math.Round(newValuta.earning, 2);
+                    newValuta.count -= cnt;
+                    MainWindow.valutas.Add(newValuta);
+                }
+            }
+            MainWindow.user.Buy = 0;
+            MainWindow.user.Sell = 0;
+            MainWindow.one[name] = false;
+        }
+
         private void Update()
         {
             while (true)
@@ -115,8 +167,22 @@ namespace HMID
                 form.Dispatcher.Invoke(
                     (ThreadStart)delegate ()
                     {
-                        MainWindow.valuePairs[name].Text = "Валюта: " + Valuta + '\n' + "Цена за 1 шт. " + Math.Round(ActualPrice, 2) + " USD" +
-                        '\n' + '\n' + "Объем одной" + '\n' + "покупки/продажи";
+                        bool flag = true;
+                        foreach (var val in MainWindow.valutas)
+                        {
+                            if (val.name == Valuta)
+                            {
+                                MainWindow.valuePairs[name].Text = "Валюта: " + Valuta + '\n' + "Цена за 1 шт. " + Math.Round(ActualPrice, 2) + " USD" +
+                                '\n' + "валюты в наличии: " + val.count + '\n' + '\n' + "Объем одной" + '\n' + "покупки/продажи";
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if (flag)
+                        {
+                            MainWindow.valuePairs[name].Text = "Валюта: " + Valuta + '\n' + "Цена за 1 шт. " + Math.Round(ActualPrice, 2) + " USD" +
+                                '\n' + "валюты в наличии: " + 0 + '\n' + '\n' + "Объем одной" + '\n' + "покупки/продажи";
+                        }
                         Random random = new Random();
                         for (int i = 0; i < N; ++i)
                         {
@@ -127,6 +193,12 @@ namespace HMID
                                 if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).active)
                                 {
                                     (child as ListBox).Items[i] = new Data() { active = true, WidthColumn = this.Width / 2 - 15, name = this.name, FontSZ = this.FontSize, AmountToCurrency = Rialto.CountToPrice[x], PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = ActiveColor };
+                                    if (Math.Abs(ActualPrice - MainWindow.user.Buy) <= 0.01 || Math.Abs(ActualPrice - MainWindow.user.Sell) <= 0.01)
+                                    {
+                                        BuySell();
+                                        form.Balance.Content = "Баланс: " + Math.Round(MainWindow.user.balance, 2);
+                                        (child as ListBox).Items[i] = new Data() { active = false, WidthColumn = this.Width / 2 - 15, name = this.name, FontSZ = this.FontSize, AmountToCurrency = Rialto.CountToPrice[x], PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = ActiveColor };
+                                    }
                                     break;
                                 }
                                 if (child is ListBox && (child as ListBox).Name == name && Rialto.CountToPrice[x] >= LargeRrice)
@@ -158,7 +230,7 @@ namespace HMID
             listBox.Name = name;
             listBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#181818"));
             listBox.Width = Width;
-            listBox.Height = form.Height - 175;
+            listBox.Height = form.Height - 200;
             return listBox;
         }
 
