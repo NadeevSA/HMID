@@ -15,5 +15,20 @@ namespace HMID
         public double FontSZ { get; set; }
         public string name { get; set; }
         public Brush color { get; set; }
+        public bool active = false;
+
+        public double NewPrice()
+        {
+            Random random = new Random();
+            if (random.Next(0, 2) == 1 || AmountToCurrency - 1000 <= 0)
+            {
+                AmountToCurrency += 1000;
+            }
+            else
+            {
+                AmountToCurrency -= 1000;
+            }
+            return AmountToCurrency;
+        }
     }
 }

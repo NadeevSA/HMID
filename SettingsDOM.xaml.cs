@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace HMID
 {
@@ -43,18 +44,34 @@ namespace HMID
             widht.Text = Convert.ToString(Width);
             largePrice.Text = Convert.ToString(LargePrice);
             fontSize.Text = Convert.ToString(FontSize);
+            LargeColor.SelectedColor = depthOfMarket.largeColor.Color;
+            BuyColor.SelectedColor = depthOfMarket.BuyColor.Color;
+            SellColor.SelectedColor = depthOfMarket.SellColor.Color;
+            ActiveColor.SelectedColor = depthOfMarket.ActiveColor.Color;
         }
 
         private void TextChanged_width(object sender, TextChangedEventArgs e)
         {
             if (widht.Text == "") return;
+            int sumWidth = 0;
+            foreach (var dom in MainWindow.depthOfMarkets)
+            {
+                sumWidth += dom.Width;
+            }
             int width = Convert.ToInt32(widht.Text);
+            if (sumWidth + width > form.Width)
+            {
+                System.Windows.MessageBox.Show("Нет места для нового стакана");
+                return;
+            }
             foreach (var child in form.panel1.Children)
             {
                 if (child is ListBox && name == (child as ListBox).Name)
                 {
                     (child as ListBox).Width = width;
                     depthOfMarket.Width = width;
+                    MainWindow.valuePairs[depthOfMarket.name].Width = width;
+                    MainWindow.valuePairs1[depthOfMarket.name].Width = width;
                     break;
                 }
             }
@@ -73,7 +90,6 @@ namespace HMID
             int NewfontSize = Convert.ToInt32(fontSize.Text);
             depthOfMarket.FontSize = NewfontSize;
         }
-
 
         private void Button_Up_Width(object sender, RoutedEventArgs e)
         {
@@ -118,9 +134,29 @@ namespace HMID
             fontSize.Text = Convert.ToString(--newWidth);
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void LargeColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            depthOfMarket.largeColor = new SolidColorBrush((Color)LargeColor.SelectedColor);
+        }
+
+        private void BuyColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            depthOfMarket.BuyColor = new SolidColorBrush((Color)BuyColor.SelectedColor);
+        }
+
+        private void SellColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            depthOfMarket.SellColor = new SolidColorBrush((Color)SellColor.SelectedColor);
+        }
+
+        private void ActiveColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            depthOfMarket.ActiveColor = new SolidColorBrush((Color)ActiveColor.SelectedColor);
         }
     }
 }

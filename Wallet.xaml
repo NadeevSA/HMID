@@ -9,22 +9,30 @@
         WindowStyle="None"
         MouseDown="titleBar_MouseLeftButtonDown"
         WindowStartupLocation="CenterScreen"
-        Title="Wallet" Height="450" Width="367">
+        Title="Wallet" Height="450" Width="470">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border Background="White">
-            <DataGrid Height="350" Margin="10" x:Name="phonesGrid" AutoGenerateColumns="True">
+            <DataGrid Height="350" Margin="10" x:Name="phonesGrid" AutoGenerateColumns="False">
                 <DataGrid.Items>
-                    <local:User Title="USDT" Result="3.12" Commission="0.12" Resources="3"/>
-                    <local:User Title="USDT" Result="3.12" Commission="0.12" Resources="3"/>
                 </DataGrid.Items>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Валюта" Binding="{Binding Path=Title}" Width="60" />
-                    <DataGridTextColumn Header="Результат" Binding="{Binding Path=Result}" Width="70" />
-                    <DataGridTextColumn Header="Комиссия" Binding="{Binding Path=Commission}" Width="70" />
-                    <DataGridTextColumn Header="Достпуные средства" Binding="{Binding Path=Resources}" Width="150" />
+                    <DataGridTextColumn Header="Валюта" Binding="{Binding Path=name}" Width="60" />
+                    <DataGridTextColumn Header="Количество" Binding="{Binding Path=count}" Width="80" />
+                    <DataGridTextColumn Header="Заработак (USD)" Binding="{Binding Path=earning}" Width="100" />
+                    <DataGridTextColumn Header="Комиссия (USD)" Binding="{Binding Path=commission}" Width="100" />
+                    <DataGridTextColumn Header="Результат (USD)" Binding="{Binding Path=result}" Width="100" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
-        <Button Width="20" Height="20" Background="Red" Foreground="White" Margin="300 0 0 400" Click="Button_Click">X</Button>
+        <Button Width="20" Height="20" Background="Red" Foreground="White" Margin="400 0 0 400" Click="Button_Click">X</Button>
+        <Button Width="150" Height="20" Margin="280 400 0 0" Click="Button_Click">Пополнить баланс</Button>
     </Grid>
 </Window>

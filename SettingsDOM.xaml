@@ -6,9 +6,10 @@
         ResizeMode="NoResize"
         MouseDown="titleBar_MouseLeftButtonDown"
         Background="Transparent" 
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="Настройка рыночного стакана" Height="150" Width="350">
+        Title="Настройка рыночного стакана" Height="350" Width="320">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Verdana" />
@@ -18,23 +19,35 @@
         </Style>
     </Window.Resources>
     <Border Background="White">
-        <Grid Height="200" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <Grid Height="500" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Label Content="Ширина стакана" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
-            <TextBox TextChanged="TextChanged_width" x:Name="widht" Text="0" Width="100"  HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="0,2,18,0" Height="20" Background="White"/>
-            <Button Click="Button_Up_Width" FontSize="10" Padding="0,-4,0,0" HorizontalAlignment="Right" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,2,6,0" Height="10"/>
-            <Button Click="Button_Down_Width" FontSize="10" Padding="0,-4,0,0" HorizontalAlignment="Right" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,12,6,0" Height="10"/>
+            <TextBox TextChanged="TextChanged_width" x:Name="widht" Text="160" Width="100"  HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="0,2,18,0" Height="20" Background="White"/>
+            <Button Click="Button_Up_Width" FontSize="10" Padding="0,-3,0,0" HorizontalAlignment="Right" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,2,6,0" Height="10"/>
+            <Button Click="Button_Down_Width" FontSize="10" Padding="0,-2,0,0" HorizontalAlignment="Right" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,12,6,0" Height="10"/>
 
             <Label Content="Заполнение строки объема при"  Margin="0 40 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
-            <TextBox TextChanged="TextChanged_largePrice" x:Name="largePrice" Text="10" Width="100" HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="0,42,18,0" Height="20" Background="White"/>
-            <Button Click="Button_Up_largePrice" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,42,6,0" Height="10"/>
-            <Button Click="Button_Down_largePrice" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,52,6,0" Height="10"/>
+            <TextBox TextChanged="TextChanged_largePrice" x:Name="largePrice" Text="20000" Width="100" HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Top" Margin="0,42,18,0" Height="20" Background="White"/>
+            <Button Click="Button_Up_largePrice" FontSize="10" HorizontalAlignment="Right" Padding="0,-3,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,42,6,0" Height="10"/>
+            <Button Click="Button_Down_largePrice" FontSize="10" HorizontalAlignment="Right" Padding="0,-2,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,52,6,0" Height="10"/>
 
             <Label Content="Размер шрифта" Margin="0 80 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
-            <TextBox TextChanged="TextChanged_fontSize" x:Name="fontSize" Text="0" HorizontalAlignment="Right" Width="100" TextAlignment="Center" VerticalAlignment="Top" Margin="0,82,18,0" Height="20" Background="White"/>
-            <Button Click="Button_Up_fontSize" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,82,6,0" Height="10"/>
-            <Button Click="Button_Down_fontSize" FontSize="10" HorizontalAlignment="Right" Padding="0,-4,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,92,6,0" Height="10"/>
+            <TextBox TextChanged="TextChanged_fontSize" x:Name="fontSize" Text="14" HorizontalAlignment="Right" Width="100" TextAlignment="Center" VerticalAlignment="Top" Margin="0,84,18,0" Height="20" Background="White"/>
+            <Button Click="Button_Up_fontSize" FontSize="10" HorizontalAlignment="Right" Padding="0,-3,0,0" Content="▲" Width="13" VerticalAlignment="Top" Margin="0,84,6,0" Height="10"/>
+            <Button Click="Button_Down_fontSize" FontSize="10" HorizontalAlignment="Right" Padding="0,-2,0,0" Content="▼" Width="13" VerticalAlignment="Top" Margin="0,94,6,0" Height="10"/>
 
-            <Button Content="Закрыть настройки" Width="130" Height="20" Margin="20,60,20,20" Click="Button_Click_2"/>
+            <Label Content="Цвет при заполнении объема" Margin="0 120 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <xctk:ColorPicker SelectedColorChanged="LargeColor_SelectedColorChanged" Margin="200 0 0 230" Height="25" Width="110" Name="LargeColor"/>
+
+            <Label Content="Цвет колонки при продажи" Margin="0 160 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <xctk:ColorPicker SelectedColorChanged="BuyColor_SelectedColorChanged" Margin="200 0 0 150" Height="25" Width="110" Name="BuyColor"/>
+
+            <Label Content="Цвет колонки при покупки" Margin="0 200 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <xctk:ColorPicker SelectedColorChanged="SellColor_SelectedColorChanged" Margin="200 0 0 70" Height="25" Width="110" Name="SellColor"/>
+
+            <Label Content="Цвет колонки при клике" Margin="0 240 0 0" HorizontalAlignment="Left" Width="500" Grid.ColumnSpan="2"/>
+            <xctk:ColorPicker SelectedColorChanged="ActiveColor_SelectedColorChanged" Margin="200 10 0 0" Height="25" Width="110" Name="ActiveColor"/>
+
+            <Button Height="25" Width="170" Margin="0 110 0 0" Click="Button_Click">Закрыть настройки</Button>
         </Grid>
     </Border>
 </Window>

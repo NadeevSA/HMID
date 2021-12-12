@@ -8,11 +8,9 @@
         mc:Ignorable="d"
         Title="ChartWIndow" Height="450" Width="800">
     <Window.DataContext>
-        <local:DepthOfMarket/>
+        <local:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid>
-            <oxy:PlotView Model="{Binding MyModel}"/>
-        </Grid>
+        <oxy:PlotView Model="{Binding DataPlot}"/>
     </Grid>
 </Window>

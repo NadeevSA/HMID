@@ -85,8 +85,7 @@
                         Background="#FFFFFF"
                         Opacity="0.5"/>
                 <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
-                    <Button Content="Войти" Width="100" Height="40" Margin="80,0,20,0" Click="btn_login_click"/>
-                    <Button Width="100" Height="40" Content="Регистрация"/>
+                    <Button Content="Войти" Width="100" Height="40" Margin="130,0,20,0" Click="btn_login_click"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

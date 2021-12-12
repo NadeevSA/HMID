@@ -26,6 +26,8 @@
                 <Grid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Настройка" Background="#29292c" Foreground="#FFFFFF"  Click="SettingsDOM_Click"></MenuItem>
+                        <MenuItem Header="Переместить влево" Background="#29292c" Foreground="#FFFFFF"  Click="MenuItem_Click_5"></MenuItem>
+                        <MenuItem Header="Переместить вправо" Background="#29292c" Foreground="#FFFFFF"  Click="MenuItem_Click_6"></MenuItem>
                         <MenuItem Header="Удалить" Background="#29292c" Foreground="#FFFFFF" Click="Button_Click1"></MenuItem>
                     </ContextMenu>
                 </Grid.ContextMenu>
@@ -33,10 +35,9 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
+        <WrapPanel Name="panel1" Margin="0 175 0 0"></WrapPanel>
         <WrapPanel Name="panel2" Margin="0 75 0 0" ></WrapPanel>
-        <ScrollViewer Margin="0 0 0 0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <WrapPanel Name="panel1" Margin="0 105 0 0" ></WrapPanel>
-        </ScrollViewer>
+        <WrapPanel Name="panel3" Margin="0 155 0 0" ></WrapPanel>
         <Menu Margin="0 0 0 20" Height="25" VerticalAlignment="Top" Background="#29292c">
             <MenuItem Header="Кошелек" Foreground="#FFFFFF" Click="MenuItem_Click_3"></MenuItem>
             <MenuItem Header="Помощь" Foreground="#FFFFFF"></MenuItem>
@@ -45,6 +46,7 @@
             <MenuItem Header="Выйти из приложения" Foreground="#FFFFFF" Click="MenuItem_Click"></MenuItem>
         </Menu>
         <WrapPanel Margin="0 25 0 0" Height="50" VerticalAlignment="Top" Background="#303034">
+            <Label Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Бюджет: 12 USD" Height="40" Width="100"></Label>
             <Button Width="150" Height="40" Background="#29292c" Foreground="#FFFFFF" Margin="3 0 3 0" Click="Button_Click_2">Создать рыночный стакан</Button>
             <Button Width="100" Height="40" Background="#29292c" Foreground="#FFFFFF" Margin="3 0 3 0" Click="Button_Click_1">Создать вкладку</Button>
             <Button Width="150" Height="40" Background="#29292c" Foreground="#FFFFFF" Margin="3 0 3 0" Click="Button_Click_3">Удалить текущую вкладку</Button>

@@ -15,15 +15,21 @@ namespace HMID
     public class DepthOfMarket
     {
         private ListBox listBox = new ListBox();
-        private double ActualPrice;
+        public List<double> ActualPrices = new List<double>();
+        public double ActualPrice = 0;
         private MainWindow form;
+        public string Valuta;
         public static int Count = 0;
-        public int N = 46;
+        public int N = 50;
         public string tab;
         public SolidColorBrush largeColor;
+        public SolidColorBrush BuyColor;
+        public SolidColorBrush SellColor;
+        public SolidColorBrush ActiveColor;
         public int FontSize = 12;
         public double LargeRrice = 17000;
         public int Width = 140;
+        public double diff = 0.15;
         public string name { get; set; }
         public string Title { get; private set; }
         public IList<DataPoint> Points { get; private set; }
@@ -35,7 +41,15 @@ namespace HMID
         public DepthOfMarket(MainWindow form)
         {
             Random random = new Random();
-            ActualPrice = random.Next(6, 30);
+            ActualPrice = random.Next(2, 6);
+            Count++;
+            this.form = form;
+        }
+
+        public DepthOfMarket(MainWindow form, double price)
+        {
+            Random random = new Random();
+            ActualPrice = price;
             Count++;
             this.form = form;
         }
@@ -43,15 +57,23 @@ namespace HMID
         public void GenerationDatas()
         {
             Random random = new Random();
-            double price = ActualPrice + N/2 * 0.05;
+            double price = ActualPrice + N/2 * diff;
             for (int i = 1; i <= N/2; ++i)
             {
                 foreach (var child in form.panel1.Children)
                 {
                     if (child is ListBox && (child as ListBox).Name == name)
                     {
-                        (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = random.Next(1, 20000), PriceToCurrency = price, color = new SolidColorBrush(Color.FromRgb(228, 182, 184)) });
-                        price = Math.Round(price - 0.05, 2);
+                        Tuple<string, double> x = new Tuple<string, double>(Valuta, price);
+                        if (Rialto.CountToPrice.ContainsKey(x))
+                            (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = Rialto.CountToPrice[x], PriceToCurrency = price, color = BuyColor });
+                        else
+                        {
+                            double count = random.Next(1, 20000);
+                            (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = count, PriceToCurrency = price, color = BuyColor });
+                            Rialto.CountToPrice[x] = count;
+                        }
+                        price = Math.Round(price - diff, 2);
                     }
                 }
             }
@@ -61,11 +83,20 @@ namespace HMID
                 {
                     if (child is ListBox && (child as ListBox).Name == name)
                     {
-                        (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = random.Next(1, 20000), PriceToCurrency = price, color = Brushes.LightGreen });
-                        price = Math.Round(price - 0.05, 2);
+                        Tuple<string, double> x = new Tuple<string, double>(Valuta, price);
+                        if (Rialto.CountToPrice.ContainsKey(x))
+                            (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = Rialto.CountToPrice[x], PriceToCurrency = price, color = SellColor });
+                        else
+                        {
+                            double count = random.Next(1, 20000);
+                            (child as ListBox).Items.Add(new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = count, PriceToCurrency = price, color = SellColor });
+                            Rialto.CountToPrice[x] = count;
+                        }
+                        price = Math.Round(price - diff, 2);
                     }
                 }
             }
+            ActualPrices.Add(ActualPrice);
             CreateToThread();
         }
 
@@ -79,43 +110,44 @@ namespace HMID
         {
             while (true)
             {
-                Random random = new Random();
-                if (random.Next(0,2) == 1)
-                {
-                    ActualPrice += 0.05;
-                }
-                else
-                {
-                    ActualPrice -= 0.05;
-                }
+                ActualPrice = Rialto.ValutaCurrentPrice[Valuta];
+                ActualPrices.Add(ActualPrice);
                 form.Dispatcher.Invoke(
                     (ThreadStart)delegate ()
                     {
+                        MainWindow.valuePairs[name].Text = "Валюта: " + Valuta + '\n' + "Цена за 1 шт. " + Math.Round(ActualPrice, 2) + " USD" +
+                        '\n' + '\n' + "Объем одной" + '\n' + "покупки/продажи";
                         Random random = new Random();
                         for (int i = 0; i < N; ++i)
                         {
                             foreach (var child in form.panel1.Children)
                             {
-                                double rnd = random.Next(1, 20000);
-                                if (child is ListBox && (child as ListBox).Name == name && rnd >= LargeRrice)
+                                Tuple<string, double> x = new Tuple<string, double>(Valuta, ((child as ListBox).Items[i] as Data).PriceToCurrency);
+
+                                if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).active)
                                 {
-                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width/2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = largeColor };
+                                    (child as ListBox).Items[i] = new Data() { active = true, WidthColumn = this.Width / 2 - 15, name = this.name, FontSZ = this.FontSize, AmountToCurrency = Rialto.CountToPrice[x], PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = ActiveColor };
+                                    break;
+                                }
+                                if (child is ListBox && (child as ListBox).Name == name && Rialto.CountToPrice[x] >= LargeRrice)
+                                {
+                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width/2 - 15, name = this.name, FontSZ = this.FontSize, AmountToCurrency = Rialto.CountToPrice[x], PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = largeColor };
                                     break;
                                 }
                                 if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).PriceToCurrency > ActualPrice)
-                                {                                    
-                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = new SolidColorBrush(Color.FromRgb(228, 182, 184)) };
+                                {
+                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width / 2 - 15, name = this.name, FontSZ = this.FontSize, AmountToCurrency = Rialto.CountToPrice[x], PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = BuyColor };
                                     break;
                                 }
                                 if (child is ListBox && (child as ListBox).Name == name && ((child as ListBox).Items[i] as Data).PriceToCurrency <= ActualPrice)
                                 {
-                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width / 2 - 12, name = this.name, FontSZ = this.FontSize, AmountToCurrency = rnd, PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = Brushes.LightGreen };
+                                    (child as ListBox).Items[i] = new Data() { WidthColumn = this.Width / 2 - 15, name = this.name, FontSZ = this.FontSize, AmountToCurrency = Rialto.CountToPrice[x], PriceToCurrency = ((child as ListBox).Items[i] as Data).PriceToCurrency, color = SellColor };
                                     break;
                                 }
                             }
                         }
                     });
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
             }
         }
 
@@ -126,7 +158,7 @@ namespace HMID
             listBox.Name = name;
             listBox.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#181818"));
             listBox.Width = Width;
-            listBox.Height = form.Height;
+            listBox.Height = form.Height - 175;
             return listBox;
         }
 

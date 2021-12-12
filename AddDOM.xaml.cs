@@ -67,10 +67,34 @@ namespace HMID
             fontSize.Text = Convert.ToString(--newWidth);
         }
 
+        private void Button_Up_n(object sender, RoutedEventArgs e)
+        {
+            int newWidth = Convert.ToInt32(n.Text);
+            n.Text = Convert.ToString(++newWidth);
+        }
+
+        private void Button_Down_n(object sender, RoutedEventArgs e)
+        {
+            int newWidth = Convert.ToInt32(n.Text);
+            n.Text = Convert.ToString(--newWidth);
+        }
+
+        private void Button_Up_diff(object sender, RoutedEventArgs e)
+        {
+            double newWidth = Convert.ToDouble(diff.Text);
+            diff.Text = Convert.ToString(++newWidth);
+        }
+
+        private void Button_Down_diff(object sender, RoutedEventArgs e)
+        {
+            double newWidth = Convert.ToDouble(diff.Text);
+            diff.Text = Convert.ToString(--newWidth);
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             int sumWidth = 0;
-            foreach (var dom in main.depthOfMarkets)
+            foreach (var dom in MainWindow.depthOfMarkets)
             {
                 if(dom.tab == Convert.ToString((main.products.SelectedItem as TabItem).Header))
                     sumWidth += dom.Width;
@@ -83,7 +107,12 @@ namespace HMID
             MainWindow._fontSize = Convert.ToInt32(fontSize.Text);
             MainWindow._largePrice = Convert.ToInt32(largePrice.Text);
             MainWindow._value = value.Text;
+            MainWindow._n = Convert.ToInt32(n.Text);
+            MainWindow._diff = Convert.ToDouble(diff.Text);
             MainWindow._largeColor = new SolidColorBrush((Color)LargeColor.SelectedColor);
+            MainWindow._buyColor = new SolidColorBrush((Color)BuyColor.SelectedColor);
+            MainWindow._sellColor = new SolidColorBrush((Color)SellColor.SelectedColor);
+            MainWindow._activeColor = new SolidColorBrush((Color)ActiveColor.SelectedColor);
             MainWindow._width = Convert.ToInt32(widht.Text);
             main.Button_Click(sender, e);
         }

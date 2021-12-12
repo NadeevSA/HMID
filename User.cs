@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace HMID
 {
-    public class User
+    class User
     {
-        public string Title { get; set; }
-        public double Result { get; set; }
-        public double Commission { get; set; }
-        public double Resources { get; set; }
     }
 }
