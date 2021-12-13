@@ -38,7 +38,7 @@ namespace HMID
         public static SolidColorBrush _activeColor;
         public static List<DepthOfMarket> depthOfMarkets = new List<DepthOfMarket>();
         public static Dictionary<String, TextBox> valuePairs = new Dictionary<string, TextBox>();
-        public static Dictionary<String, ComboBox> valuePairs1 = new Dictionary<string, ComboBox>();
+        public static Dictionary<String, TextBox> valuePairs1 = new Dictionary<string, TextBox>();
         public static List<Valuta> valutas = new List<Valuta>();
         public static Dictionary<String, bool> one = new Dictionary<string, bool>();
 
@@ -78,19 +78,10 @@ namespace HMID
             textBox.Width = _width;
             textBox.Height = 100;
             textBox.IsReadOnly = true;
-            ComboBox comboBox = new ComboBox();
-            TextBlock forComboBox1 = new TextBlock();
-            TextBlock forComboBox2 = new TextBlock();
-            TextBlock forComboBox3 = new TextBlock();
-            forComboBox1.Text = "10";
-            forComboBox2.Text = "30";
-            forComboBox3.Text = "50";
-            comboBox.Items.Add(forComboBox1);
-            comboBox.Items.Add(forComboBox2);
-            comboBox.Items.Add(forComboBox3);
-            comboBox.SelectedItem = forComboBox1;
-            comboBox.Width = _width;
+            TextBox comboBox = new TextBox();
+            comboBox.Text = "10";
             comboBox.Height = 20;
+            comboBox.Width = _width;
             valuePairs.Add(depthOfMarket.name, textBox);
             valuePairs1.Add(depthOfMarket.name, comboBox);
             one.Add(depthOfMarket.name, false);
@@ -176,7 +167,7 @@ namespace HMID
                                 {
                                     if (dom.ActualPrice >= ((sender as FrameworkElement).DataContext as Data).PriceToCurrency)
                                     {
-                                        if (Convert.ToInt32((valuePairs1[dom.name].SelectedItem as TextBlock).Text) *
+                                        if (Convert.ToInt32((valuePairs1[dom.name] as TextBox).Text) *
                                             ((sender as FrameworkElement).DataContext as Data).PriceToCurrency <= user.balance){
                                             user.Buy = ((sender as FrameworkElement).DataContext as Data).PriceToCurrency;
                                             ((sender as FrameworkElement).DataContext as Data).active = true;
@@ -196,7 +187,7 @@ namespace HMID
                                             if (valuta.name == dom.Valuta) 
                                                 count = valuta.count;
                                         }
-                                        if (count >= Convert.ToInt32((valuePairs1[dom.name].SelectedItem as TextBlock).Text))
+                                        if (count >= Convert.ToInt32((valuePairs1[dom.name] as TextBox).Text))
                                         {
                                             user.Sell = ((sender as FrameworkElement).DataContext as Data).PriceToCurrency;
                                             ((sender as FrameworkElement).DataContext as Data).active = true;

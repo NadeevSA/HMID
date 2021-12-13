@@ -102,7 +102,7 @@ namespace HMID
 
         private void BuySell()
         {
-            int cnt = Convert.ToInt32((MainWindow.valuePairs1[name].SelectedItem as TextBlock).Text);
+            int cnt = Convert.ToInt32((MainWindow.valuePairs1[name] as TextBox).Text);
             if (MainWindow.user.Buy != 0)
             {
                 MainWindow.user.balance -= cnt * MainWindow.user.Buy;

@@ -9,7 +9,7 @@
         Background="Transparent" 
         WindowStyle="None"
         MouseDown="titleBar_MouseLeftButtonDown"
-        Title="About" Height="160" Width="370">
+        Title="About" Height="150" Width="400">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Verdana" />
@@ -22,10 +22,8 @@
         <Grid>
             <Label>Терминал для торговли на бирже</Label>
             <Label Margin="0,15,0,0">Создатели: студенты УГАТУ, ПРО-421</Label>
-            <Label Margin="0,30,0,0">По вопросам обращайтеся на почту: nasha_pochta@mail.ru</Label>
-            <Label Margin="0,45,0,0">Предложения по работе - ждем</Label>
-            <Label Margin="0,60,0,0">Все права защищены</Label>
-            <Button Margin="10,80,20,20" Width="70" Height="40" Content="Закрыть" Click="Button_Click"/>
+            <Label Margin="0,30,0,0">Надеев Сергей, Закиров Тимур, Шарипова Эльмира, Галиев Нияз</Label>
+            <Button Margin="10,70,20,20" Width="70" Height="40" Content="Закрыть" Click="Button_Click"/>
         </Grid>
     </Border>
 </Window>
